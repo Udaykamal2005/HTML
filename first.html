@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cinema Seat Booking System</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url("11.jpeg") no-repeat center center/cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            max-width: 800px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .screen {
+            background: #333;
+            height: 40px;
+            width: 100%;
+            margin: 20px 0;
+            border-radius: 5px;
+            position: relative;
+        }
+        .screen:before {
+            content: "SCREEN";
+            position: absolute;
+            color: #fff;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+        .row {
+            display: flex;
+            justify-content: center;
+            margin: 5px 0;
+        }
+        .seat {
+            width: 25px;
+            height: 25px;
+            margin: 3px;
+            background: #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .seat.selected {
+            background: #6feaf6;
+        }
+        .seat.occupied {
+            background: #444;
+            cursor: not-allowed;
+        }
+        .seat:not(.occupied):hover {
+            background: #76c7c0;
+        }
+        .info {
+            margin-top: 20px;
+        }
+        .info span {
+            display: inline-block;
+            margin: 10px;
+        }
+        .info .seat-box {
+            width: 15px;
+            height: 15px;
+            display: inline-block;
+            margin-right: 5px;
+            border-radius: 3px;
+        }
+        .btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Cinema Seat Booking</h1>
+        <div class="screen"></div>
+
+        <div class="row">
+            <div class="seat"></div>
+            <div class="seat"></div>
+            <div class="seat occupied"></div>
+            <div class="seat"></div>
+            <div class="seat"></div>
+        </div>
+        <div class="row">
+            <div class="seat"></div>
+            <div class="seat occupied"></div>
+            <div class="seat"></div>
+            <div class="seat"></div>
+            <div class="seat"></div>
+        </div>
+        <div class="row">
+            <div class="seat"></div>
+            <div class="seat"></div>
+            <div class="seat"></div>
+            <div class="seat"></div>
+            <div class="seat"></div>
+        </div>
+
+        <div class="info">
+            <span><div class="seat-box" style="background: #ccc;"></div> Available</span>
+            <span><div class="seat-box" style="background: #444;"></div> Occupied</span>
+            <span><div class="seat-box" style="background: #6feaf6;"></div> Selected</span>
+        </div>
+
+        <button class="btn" id="bookSeats">Book Now</button>
+    </div>
+
+    <script>
+        const seats = document.querySelectorAll('.seat:not(.occupied)');
+        const bookButton = document.getElementById('bookSeats');
+
+        seats.forEach(seat => {
+            seat.addEventListener('click', () => {
+                seat.classList.toggle('selected');
+            });
+        });
+
+        bookButton.addEventListener('click', () => {
+            const selectedSeats = document.querySelectorAll('.seat.selected');
+            if (selectedSeats.length === 0) {
+                alert('Please select at least one seat!');
+                return;
+            }
+            alert(Successfully booked ${selectedSeats.length} seat(s)!);
+            selectedSeats.forEach(seat => seat.classList.remove('selected'));
+        });
+    </script>
+</body>
+</html>
